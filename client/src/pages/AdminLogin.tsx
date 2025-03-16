@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, Lock } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
+import axios from 'axios';
 
 export default function AdminLogin() {
     const [username, setUsername] = useState('');
@@ -11,41 +11,31 @@ export default function AdminLogin() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check if already logged in
         const token = localStorage.getItem("adminToken");
         if (token) {
             navigate("/dashboard");
         }
     }, [navigate]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         
         try {
-            // For demo purposes, simulate API call
-            await new Promise(resolve => setTimeout(resolve, 800));
+            const response = await axios.post("http://localhost:4000/api/admin/login", { username, password });
+            localStorage.setItem("adminToken", response.data.token);
             
-            // Simplified login for demo (in a real app, use proper authentication)
-            if (username === "admin" && password === "password") {
-                // Save token to localStorage
-                localStorage.setItem("adminToken", "demo-token-12345");
-                
-                toast({
-                    title: "Login successful",
-                    description: "Welcome back to the dashboard",
-                    variant: "default",
-                });
-                
-                // Redirect to dashboard
-                navigate("/dashboard");
-            } else {
-                throw new Error("Invalid credentials");
-            }
+            toast({
+                title: "Login successful",
+                description: "Welcome back to the dashboard",
+                variant: "default",
+            });
+            
+            navigate("/dashboard");
         } catch (error) {
             toast({
                 title: "Login failed",
-                description: "Invalid username or password",
+                description: error.response?.data?.message || "Invalid username or password",
                 variant: "destructive",
             });
         } finally {
@@ -111,10 +101,6 @@ export default function AdminLogin() {
                             ) : null}
                             {isLoading ? "Signing in..." : "Sign In"}
                         </button>
-                    </div>
-
-                    <div className="text-center text-xs text-muted-foreground mt-6">
-                        <p>Use <span className="font-medium">admin</span> / <span className="font-medium">password</span> for demo</p>
                     </div>
                 </form>
             </div>

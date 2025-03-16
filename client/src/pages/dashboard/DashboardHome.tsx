@@ -1,4 +1,3 @@
-
 import {
     TrendingUp,
     Calendar,
@@ -15,16 +14,16 @@ import TransactionTable from "./components/TransactionTable";
 
 export default function DashboardHome() {
     const [isLoading, setIsLoading] = useState(true);
-    
+
     useEffect(() => {
         // Simulate data loading
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 1000);
-        
+
         return () => clearTimeout(timer);
     }, []);
-    
+
     const stats = [
         {
             title: "Total Bookings",
@@ -63,7 +62,7 @@ export default function DashboardHome() {
             color: "orange"
         }
     ];
-    
+
     const flightManagement = [
         {
             title: "Recent Bookings",
@@ -84,7 +83,7 @@ export default function DashboardHome() {
             color: "purple"
         }
     ];
-    
+
     // Transaction data
     const transactions = [
         {
@@ -127,7 +126,7 @@ export default function DashboardHome() {
     return (
         <div className="space-y-6 animate-fade-in">
             {/* Stats Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((stat, index) => (
                     <StatCard 
                         key={stat.title}
@@ -142,7 +141,7 @@ export default function DashboardHome() {
                         delay={index}
                     />
                 ))}
-            </div>
+            </div> */}
 
             {/* Flight Management Section */}
             <div className="glass rounded-2xl overflow-hidden border border-border animate-item stagger-1">
@@ -157,20 +156,23 @@ export default function DashboardHome() {
                 </div>
                 <div className="p-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {flightManagement.map((item, index) => (
-                            <div 
-                                key={item.title}
-                                className={`bg-background rounded-xl p-5 hover:shadow-md transition-all cursor-pointer border border-border animate-item ${`stagger-${index + 1}`}`}
-                            >
-                                <div className="flex items-center space-x-3 mb-3">
-                                    <div className={`bg-${item.color}-100 p-2 rounded-lg`}>
-                                        <item.icon size={20} className={`text-${item.color}-600`} />
+                        {flightManagement.map((item, index) => {
+                            const IconComponent = item.icon;
+                            return (
+                                <div 
+                                    key={item.title}
+                                    className={`bg-background rounded-xl p-5 hover:shadow-md transition-all cursor-pointer border border-border animate-item stagger-${index + 1}`}
+                                >
+                                    <div className="flex items-center space-x-3 mb-3">
+                                        <div className={`bg-${item.color}-100 p-2 rounded-lg`}>
+                                            <IconComponent size={20} className={`text-${item.color}-600`} />
+                                        </div>
+                                        <h3 className="font-medium">{item.title}</h3>
                                     </div>
-                                    <h3 className="font-medium">{item.title}</h3>
+                                    <p className="text-sm text-muted-foreground">{item.description}</p>
                                 </div>
-                                <p className="text-sm text-muted-foreground">{item.description}</p>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </div>
