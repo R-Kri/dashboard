@@ -27,13 +27,19 @@ app.use(cors({
 
 app.use(express.json());
 
+// ✅ Root Route - Fixes "Cannot GET /"
+app.get("/", (req, res) => {
+    res.send("Backend is running...");
+});
+
+// ✅ Register Routes BEFORE Starting Server
+app.use("/api/admin", adminRoutes);
+
 // Start the server after DB connection and seeding
 const startServer = async () => {
     try {
         await connectDB();
         await seedAdmins();
-
-        app.use("/api/admin", adminRoutes);
 
         const PORT = process.env.PORT || 5000;
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-  "vercel-build": "npm install",
-  "build": "npm install", 
-  "dev": "node --watch index.js"
+    "build": "npm install", 
+    "dev": "node --watch index.js"
   },
   "author": "",
   "license": "ISC",
