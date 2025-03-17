@@ -1,7 +1,6 @@
-"use client"
 
-import { useState, useEffect } from "react"
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
     ChevronLeft,
     ChevronRight,
@@ -14,71 +13,69 @@ import {
     Calendar,
     LogOut,
     User,
-} from "lucide-react"
-import { toast } from "@/components/ui/use-toast"
+} from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
 export default function Sidebar() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-    const [expandedMenus, setExpandedMenus] = useState(["report"])
-    const location = useLocation()
-    const navigate = useNavigate()
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [expandedMenus, setExpandedMenus] = useState(["report"]);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     // Get current path for active menu highlighting
-    const currentPath = location.pathname.split("/")[2] || "" // get the part after /dashboard/
+    const currentPath = location.pathname.split("/")[2] || ""; // get the part after /dashboard/
 
     // Set proper expanded menus based on current path
     useEffect(() => {
         if (currentPath === "customers" || currentPath === "agents" || currentPath === "fund-request") {
             // If we're on a main menu item, no need to expand submenus
-            setExpandedMenus([])
-        } else if (currentPath === "") {
-            // On main dashboard, don't expand any menus by default
-            setExpandedMenus([])
+            setExpandedMenus([]);
         } else {
-            // Only on report pages
-            setExpandedMenus(["report"])
+            // On dashboard home or report pages
+            setExpandedMenus(["report"]);
         }
-    }, [currentPath])
+    }, [currentPath]);
 
     const toggleMenu = (menu: string) => {
         if (expandedMenus.includes(menu)) {
-            setExpandedMenus(expandedMenus.filter((item) => item !== menu))
+            setExpandedMenus(expandedMenus.filter((item) => item !== menu));
         } else {
-            setExpandedMenus([...expandedMenus, menu])
+            setExpandedMenus([...expandedMenus, menu]);
         }
-    }
+    };
 
     const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen)
-    }
+        setIsSidebarOpen(!isSidebarOpen);
+    };
 
     const handleLogout = () => {
         // Show loading toast
         toast({
             title: "Logging out",
             description: "Please wait...",
-        })
+        });
 
         // Simulate logout process (would be an API call in real app)
         setTimeout(() => {
             // Remove token
-            localStorage.removeItem("adminToken")
-
+            localStorage.removeItem("adminToken");
+            
             // Show success toast
             toast({
                 title: "Logged out successfully",
                 description: "You have been logged out from the system",
-            })
-
+            });
+            
             // Redirect to login page
-            navigate("/")
-        }, 800)
-    }
+            navigate("/");
+        }, 800);
+    };
 
     return (
         <div
-            className={`${isSidebarOpen ? "w-64" : "w-20"
-                } bg-sidebar text-sidebar-foreground transition-all duration-300 ease-in-out flex flex-col shadow-lg z-30`}
+            className={`${
+                isSidebarOpen ? "w-64" : "w-20"
+            } bg-sidebar text-sidebar-foreground transition-all duration-300 ease-in-out flex flex-col shadow-lg z-30`}
         >
             {/* Sidebar Header */}
             <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
@@ -100,22 +97,13 @@ export default function Sidebar() {
             {/* Sidebar Menu */}
             <div className="flex-1 overflow-y-auto py-4 px-3">
                 <ul className="space-y-2">
-                    <li>
-                        <Link
-                            to="/dashboard"
-                            className={`flex items-center p-2.5 rounded-lg ${currentPath === "" ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50"
-                                } transition-colors`}
-                        >
-                            <PieChart size={20} className="min-w-5" />
-                            {isSidebarOpen && <span className="ml-3">Dashboard</span>}
-                        </Link>
-                    </li>
                     {/* Reports Menu */}
                     <li>
                         <button
                             onClick={() => toggleMenu("report")}
-                            className={`flex items-center justify-between w-full p-2.5 rounded-lg ${currentPath.includes("report") ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50"
-                                } transition-colors`}
+                            className={`flex items-center justify-between w-full p-2.5 rounded-lg ${
+                                currentPath === "" ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50"
+                            } transition-colors`}
                         >
                             <div className="flex items-center">
                                 <PieChart size={20} className="min-w-5" />
@@ -124,7 +112,9 @@ export default function Sidebar() {
                             {isSidebarOpen && (
                                 <ChevronDown
                                     size={16}
-                                    className={`transform transition-transform ${expandedMenus.includes("report") ? "rotate-180" : ""}`}
+                                    className={`transform transition-transform ${
+                                        expandedMenus.includes("report") ? "rotate-180" : ""
+                                    }`}
                                 />
                             )}
                         </button>
@@ -167,8 +157,9 @@ export default function Sidebar() {
                     <li>
                         <Link
                             to="/dashboard/customers"
-                            className={`flex items-center p-2.5 rounded-lg ${currentPath === "customers" ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50"
-                                } transition-colors`}
+                            className={`flex items-center p-2.5 rounded-lg ${
+                                currentPath === "customers" ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50"
+                            } transition-colors`}
                         >
                             <Users size={20} className="min-w-5" />
                             {isSidebarOpen && <span className="ml-3">Customer List</span>}
@@ -179,8 +170,9 @@ export default function Sidebar() {
                     <li>
                         <Link
                             to="/dashboard/agents"
-                            className={`flex items-center p-2.5 rounded-lg ${currentPath === "agents" ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50"
-                                } transition-colors`}
+                            className={`flex items-center p-2.5 rounded-lg ${
+                                currentPath === "agents" ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50"
+                            } transition-colors`}
                         >
                             <UserCheck size={20} className="min-w-5" />
                             {isSidebarOpen && <span className="ml-3">Agent List</span>}
@@ -191,8 +183,9 @@ export default function Sidebar() {
                     <li>
                         <Link
                             to="/dashboard/fund-request"
-                            className={`flex items-center p-2.5 rounded-lg ${currentPath === "fund-request" ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50"
-                                } transition-colors`}
+                            className={`flex items-center p-2.5 rounded-lg ${
+                                currentPath === "fund-request" ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50"
+                            } transition-colors`}
                         >
                             <CreditCard size={20} className="min-w-5" />
                             {isSidebarOpen && <span className="ml-3">Fund Request</span>}
@@ -205,16 +198,16 @@ export default function Sidebar() {
             <div className="p-4 border-t border-sidebar-border">
                 <button
                     onClick={handleLogout}
-                    className={`${isSidebarOpen
+                    className={`${
+                        isSidebarOpen
                             ? "flex items-center w-full p-2.5 rounded-lg"
                             : "flex items-center justify-center w-full p-2.5 rounded-lg"
-                        } hover:bg-sidebar-accent/50 transition-colors`}
+                    } hover:bg-sidebar-accent/50 transition-colors`}
                 >
                     <LogOut size={20} />
                     {isSidebarOpen && <span className="ml-3">Logout</span>}
                 </button>
             </div>
         </div>
-    )
+    );
 }
-
