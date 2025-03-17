@@ -26,6 +26,9 @@ router.post("/seed", async (req, res) => {
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
+    console.log("Hello");
+    
+
     try {
         if (mongoose.connection.readyState !== 1) {
             console.log("MongoDB not connected, reconnecting...");
