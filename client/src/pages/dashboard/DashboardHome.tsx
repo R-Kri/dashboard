@@ -178,7 +178,7 @@ export default function DashboardHome() {
             </div>
 
             {/* Recent Transactions */}
-            <div className="glass rounded-2xl overflow-hidden border border-border animate-item stagger-2">
+            {/* <div className="glass rounded-2xl overflow-hidden border border-border animate-item stagger-2">
                 <div className="p-5 border-b border-border flex items-center justify-between">
                     <h2 className="text-xl font-medium text-foreground">Recent Transactions</h2>
                     <button className="text-primary hover:text-primary/80 text-sm hover:underline transition-colors">
@@ -186,7 +186,7 @@ export default function DashboardHome() {
                     </button>
                 </div>
                 <TransactionTable transactions={transactions} isLoading={isLoading} />
-            </div>
+            </div> */}
         </div>
     );
 }
