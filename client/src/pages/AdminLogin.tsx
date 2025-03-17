@@ -22,7 +22,7 @@ export default function AdminLogin() {
         setIsLoading(true);
         
         try {
-            const response = await axios.post("https://dashboard-serever-a1339ogus-r-kris-projects.vercel.app/", { username, password })
+            const response = await axios.post("https://dashboard-serever.vercel.app/api/admin/login", { username, password })
                 .catch(() => axios.post("http://localhost:4000/api/admin/login", { username, password }));
             
             localStorage.setItem("adminToken", response.data.token);
