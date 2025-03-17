@@ -8,10 +8,10 @@ import { seedAdmins } from "./src/utils/seedData.js";
 dotenv.config();
 const app = express();
 
-// Allowed Origins for CORS is this
+// Allowed Origins for CORS
 const allowedOrigins = [
     "http://localhost:8080", 
-    "https://dashboard-serever-a1339ogus-r-kris-projects.vercel.app/"
+    "https://dashboard-six-delta-99.vercel.app"
 ];
 
 app.use(cors({
@@ -28,11 +28,13 @@ app.use(cors({
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("Backend is running.");
+    res.send("Backend is running...");
 });
 
+// ✅ Register Routes BEFORE Starting Server
 app.use("/api/admin", adminRoutes);
 
+// Start the server after DB connection and seeding
 const startServer = async () => {
     try {
         await connectDB();
