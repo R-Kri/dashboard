@@ -8,7 +8,6 @@ const Header: React.FC = () => {
         <div className="w-full max-w-9xl mx-auto pb-10">
             <header className="flex items-center justify-between py-3 mb-4">
                 
-                {/* Move Back Button */}
                 <button 
                     onClick={() => navigate("/dashboard")} 
                     className="bg-blue-500 text-white px-2 py-2 rounded-lg hover:bg-blue-600 transition"

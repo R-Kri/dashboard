@@ -10,7 +10,7 @@ export default function DashboardLayout() {
     useEffect(() => {
         const token = localStorage.getItem("adminToken");
         if (!token) {
-            navigate("/"); // Redirect to login if not authenticated
+            navigate("/"); 
         }
     }, [navigate]);
 

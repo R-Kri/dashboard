@@ -153,10 +153,9 @@ export default function DashboardHome() {
                         <h2 className="text-xl font-medium">Flight Management</h2>
                     </div>
                     <button 
-                    onClick={() => navigate("/flights")} // Redirect to /flights
                     className="bg-white text-primary px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-white/90 transition-colors"
                 >
-                    Flight
+                    View All
                 </button>
                     
                 </div>
