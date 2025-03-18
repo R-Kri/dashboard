@@ -9,10 +9,10 @@ dotenv.config();
 const app = express();
 
 // Allowed Origins for CORS
-app.use(cors({
-    origin: '*',  // Temporarily allow all origins for testing
-    credentials: true
-  }));
+const allowedOrigins = [
+    "http://localhost:8080", 
+    "https://dashboard-six-delta-99.vercel.app"
+];
 
 app.use(cors({
     origin: (origin, callback) => {

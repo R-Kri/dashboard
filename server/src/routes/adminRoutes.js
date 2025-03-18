@@ -24,9 +24,9 @@ router.post("/seed", async (req, res) => {
 
 // Admin Login Route
 router.post("/login", async (req, res) => {
-    const { username, password } = req.body;
-
-    console.log("Hello");
+    const { username, password } = req.body;  
+    
+    console.log("in th /login");
     
 
     try {
@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
         const token = jwt.sign(
             { id: admin._id, username: admin.username },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" }
+            { expiresIn: "2d" }
         );
 
         res.json({
@@ -62,6 +62,9 @@ router.post("/login", async (req, res) => {
 
 // Protected profile route
 router.get("/profile", protect, async (req, res) => {
+
+    console.log("in the /profile");
+    
     try {
         const admin = await Admin.findById(req.admin.id).select("-password");
         if (!admin) {
