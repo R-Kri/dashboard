@@ -26,7 +26,7 @@ router.post("/seed", async (req, res) => {
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;  
     
-    console.log("in th /login");
+    console.log("logging in");
     
 
     try {
