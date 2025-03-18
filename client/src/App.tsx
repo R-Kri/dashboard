@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +10,7 @@ import AgentList from "./pages/dashboard/AgentList";
 import FundRequest from "./pages/dashboard/FundRequest";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 import NotFound from "./pages/NotFound";
+import FlightPage from "./pages/Flights/FlightPage";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +28,7 @@ const App = () => (
             <Route path="agents" element={<AgentList />} />
             <Route path="fund-request" element={<FundRequest />} />
           </Route>
+          <Route path="/flights" element={<FlightPage />} /> 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

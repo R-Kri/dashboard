@@ -8,11 +8,13 @@ import {
     BarChart2,
     Briefcase
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import StatCard from "./components/StatCard";
 import TransactionTable from "./components/TransactionTable";
 
 export default function DashboardHome() {
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -150,9 +152,13 @@ export default function DashboardHome() {
                         <Plane size={24} />
                         <h2 className="text-xl font-medium">Flight Management</h2>
                     </div>
-                    <button className="bg-white text-primary px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-white/90 transition-colors">
-                        View All
-                    </button>
+                    <button 
+                    onClick={() => navigate("/flights")} // Redirect to /flights
+                    className="bg-white text-primary px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-white/90 transition-colors"
+                >
+                    Flight
+                </button>
+                    
                 </div>
                 <div className="p-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
