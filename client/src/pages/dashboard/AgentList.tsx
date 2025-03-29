@@ -4,7 +4,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
+// Update the API_BASE_URL to use your deployed backend URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://dashboard-server-zeta.vercel.app";
 
 export default function AgentList() {
     const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +13,7 @@ export default function AgentList() {
     const [isEditing, setIsEditing] = useState(false);
     const [agents, setAgents] = useState([]);
     const [agentDetails, setAgentDetails] = useState({
-        id: null,
+        _id: null,
         name: "",
         address: "",
         phone: "",
@@ -30,7 +31,7 @@ export default function AgentList() {
             if (!response.ok) throw new Error("Failed to fetch agents");
 
             const data = await response.json();
-            console.log("Fetched agents:", data); // Log the entire agent data
+            console.log("Fetched agents:", data);
             setAgents(data);
         } catch (error) {
             console.error("Error fetching agents:", error);
@@ -47,7 +48,7 @@ export default function AgentList() {
     const handleSubmit = async () => {
         try {
             const url = isEditing
-                ? `${API_BASE_URL}/api/agents/${agentDetails.id}`  
+                ? `${API_BASE_URL}/api/agents/${agentDetails._id}`  
                 : `${API_BASE_URL}/api/agents`;
 
             const method = isEditing ? "PUT" : "POST";
@@ -62,8 +63,8 @@ export default function AgentList() {
 
             alert(`Agent ${isEditing ? "updated" : "registered"} successfully!`);
             setIsOpen(false);
-            setAgentDetails({ id: null, name: "", address: "", phone: "", email: "" });
-            fetchAgents(); // Refresh agents after adding/updating
+            setAgentDetails({ _id: null, name: "", address: "", phone: "", email: "" });
+            fetchAgents();
         } catch (error) {
             console.error("Error processing request:", error);
             alert("Failed to process request.");
@@ -77,7 +78,7 @@ export default function AgentList() {
     };
 
     const handleDelete = async (id) => {
-        console.log("Attempting to delete agent with ID:", id, typeof id); // Log the ID and its type
+        console.log("Attempting to delete agent with ID:", id, typeof id);
 
         if (!window.confirm("Are you sure you want to delete this agent?")) return;
 
