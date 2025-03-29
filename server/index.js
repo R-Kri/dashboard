@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./src/config/db.js";
 import adminRoutes from "./src/routes/adminRoutes.js";
+import agentRoutes from "./src/routes/agentRoutes.js";
 import { seedAdmins } from "./src/utils/seedData.js";
 
 dotenv.config();
@@ -26,13 +27,15 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
     res.send("Backend is running...");
 });
 
-// ✅ Register Routes BEFORE Starting Server
+// ✅ Register Routes
 app.use("/api/admin", adminRoutes);
+app.use("/api/agents", agentRoutes);
 
 // Start the server after DB connection and seeding
 const startServer = async () => {
