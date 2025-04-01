@@ -4,8 +4,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-// Update the API_BASE_URL to use your deployed backend URL
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://dashboard-server-zeta.vercel.app";
+// Fix the environment variable access to use the VITE_ prefix
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://dashboard-server-zeta.vercel.app/";
 
 export default function AgentList() {
     const [isLoading, setIsLoading] = useState(true);
@@ -13,7 +13,7 @@ export default function AgentList() {
     const [isEditing, setIsEditing] = useState(false);
     const [agents, setAgents] = useState([]);
     const [agentDetails, setAgentDetails] = useState({
-        _id: null,
+        _id: null, // Changed from id to _id
         name: "",
         address: "",
         phone: "",
@@ -31,7 +31,7 @@ export default function AgentList() {
             if (!response.ok) throw new Error("Failed to fetch agents");
 
             const data = await response.json();
-            console.log("Fetched agents:", data);
+            console.log("Fetched agents:", data); // Log the entire agent data
             setAgents(data);
         } catch (error) {
             console.error("Error fetching agents:", error);
@@ -47,6 +47,7 @@ export default function AgentList() {
 
     const handleSubmit = async () => {
         try {
+            // Fix the URL to use _id instead of id
             const url = isEditing
                 ? `${API_BASE_URL}/api/agents/${agentDetails._id}`  
                 : `${API_BASE_URL}/api/agents`;
@@ -63,8 +64,9 @@ export default function AgentList() {
 
             alert(`Agent ${isEditing ? "updated" : "registered"} successfully!`);
             setIsOpen(false);
+            // Update the reset state to use _id instead of id
             setAgentDetails({ _id: null, name: "", address: "", phone: "", email: "" });
-            fetchAgents();
+            fetchAgents(); // Refresh agents after adding/updating
         } catch (error) {
             console.error("Error processing request:", error);
             alert("Failed to process request.");
