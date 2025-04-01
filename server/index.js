@@ -12,7 +12,8 @@ const app = express();
 // Allowed Origins for CORS
 const allowedOrigins = [
     "http://localhost:8080", 
-    "https://dashboard-six-delta-99.vercel.app"
+    "https://dashboard-six-delta-99.vercel.app",
+    "https://dashboard-server-zeta.vercel.app/"
 ];
 
 app.use(cors({
